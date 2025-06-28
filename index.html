@@ -1,59 +1,139 @@
-<!-- index.html -->
+<!-- File: index.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Personal Site</title>
+  <meta name="description" content="Shuta's personal site featuring about, skills, diary, gallery, and contact form">
+  <title>Shuta's Portfolio</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="logo">Shuta</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#diary">Diary</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+      </ul>
+    </nav>
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <h1>Welcome to My World</h1>
+        <p>Data Scientist & Web Developer based in Tokyo.</p>
+        <a href="#about" class="btn-primary">Learn More</a>
+      </div>
+    </section>
+  </header>
 
-<header class="site-header">
-  <nav class="navbar">
-    <a href="index.html" class="logo">MySite</a>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#diary">Diary</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+  <main>
+    <section id="about" class="container fade-in">
+      <h2>About Me</h2>
+      <p>Hey, I’m Shuta. Originally from Kansai, now living in Tokyo. I graduated from Kobe University in Data Science (2025), specializing in aircraft fuel consumption. Currently working at Kao Corporation in the data science team.</p>
+    </section>
 
-<main>
-  <section id="about">
-    <h1>About Me</h1>
-    <p>ここに自己紹介を記載します。学歴や現在の職業、興味分野などをまとめましょう。</p>
-  </section>
+    <section id="skills" class="container fade-in">
+      <h2>Skills</h2>
+      <div class="grid skills-grid">
+        <div class="card"><h3>Python</h3><p>Pandas · NumPy · scikit-learn</p></div>
+        <div class="card"><h3>Web Dev</h3><p>HTML · CSS · JavaScript</p></div>
+        <div class="card"><h3>ML</h3><p>TensorFlow · PyTorch</p></div>
+        <div class="card"><h3>Data Viz</h3><p>Matplotlib · Plotly</p></div>
+      </div>
+    </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Python</li>
-      <li>データ分析 (Pandas, NumPy)</li>
-      <li>Web開発 (HTML, CSS, JavaScript)</li>
-      <li>機械学習 (scikit-learn, TensorFlow)</li>
-      <!-- 必要に応じて追加 -->
-    </ul>
-  </section>
+    <section id="diary" class="container fade-in">
+      <h2>Latest Diary</h2>
+      <div class="grid diary-grid">
+        <article class="card">
+          <h3>2025-06-28</h3>
+          <p>Launched my first personal website. Added dark mode, gallery, and contact form.</p>
+          <a href="diary.html" class="btn-secondary">Read More</a>
+        </article>
+      </div>
+    </section>
 
-  <section id="diary">
-    <h2>Diary</h2>
-    <ul>
-      <li><a href="diary.html">2025-06-28: サイト構築の進捗</a></li>
-      <li><a href="diary.html">2025-06-27: GitHub Pages 設定</a></li>
-      <!-- 日記エントリを追加 -->
-    </ul>
-  </section>
+    <section id="gallery" class="container fade-in">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <img src="images/photo1.jpg" alt="Photo 1">
+        <img src="images/photo2.jpg" alt="Photo 2">
+        <img src="images/photo3.jpg" alt="Photo 3">
+        <img src="images/photo4.jpg" alt="Photo 4">
+      </div>
+    </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
-  </section>
-</main>
+    <section id="contact" class="container fade-in">
+      <h2>Contact Me</h2>
+      <form action="#" class="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+        <button type="submit" class="btn-primary">Send</button>
+      </form>
+    </section>
+  </main>
 
-<script src="script.js"></script>
+  <button id="to-top" class="to-top" aria-label="Back to top">↑</button>
+
+  <footer class="site-footer">
+    <div class="container"><p>&copy; 2025 Shuta. All rights reserved.</p></div>
+  </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
+
+<!-- File: diary.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Diary entry: Launched my personal website on 2025-06-28">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diary – 2025-06-28</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="logo">Shuta</a>
+      <button class="nav-toggle" id="nav-toggle-diary" aria-label="Toggle navigation">☰</button>
+      <ul class="nav-menu" id="nav-menu-diary">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#diary">Diary</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><button id="theme-toggle-diary" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container diary-page">
+    <article class="card fade-in">
+      <h1>2025-06-28: Create and Launch the Website</h1>
+      <p>Today I launched my very first personal website. It features my skills, daily life updates, gallery, and more. Feel free to browse around!</p>
+    </article>
+    <p><a href="index.html" class="btn-secondary">← Back to Home</a></p>
+  </main>
+
+  <button id="to-top-diary" class="to-top" aria-label="Back to top">↑</button>
+  <footer class="site-footer">
+    <div class="container"><p>&copy; 2025 Shuta. All rights reserved.</p></div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+
