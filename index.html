@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My First Web Page</title>
-    <link rel="stylesheet" href="style.css">  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My First Web Page</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-    <body>
-        <h1>My web page</h1>
-        <button id = "btn">Click here</button> 
-        <script src="script.js"></script>
-    </body>
+<body>
+  <h1>こんにちは、世界！</h1>
+
+  <!-- ダークモード切り替えトグル -->
+  <label class="theme-switch">
+    <input type="checkbox" id="theme-toggle">
+    <span>ダークモード</span>
+  </label>
+
+  <!-- モーダルを開くボタン -->
+  <button id="btn">モーダルを開く</button>
+
+  <!-- モーダル本体 -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close">&times;</span>
+      <p>ここにモーダルの内容を入れます。</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
