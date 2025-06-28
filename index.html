@@ -1,31 +1,59 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My First Web Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Personal Site</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>こんにちは、世界！</h1>
 
-  <!-- ダークモード切り替えトグル -->
-  <label class="theme-switch">
-    <input type="checkbox" id="theme-toggle">
-    <span>ダークモード</span>
-  </label>
+<header class="site-header">
+  <nav class="navbar">
+    <a href="index.html" class="logo">MySite</a>
+    <button class="nav-toggle" id="nav-toggle">☰</button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#diary">Diary</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- モーダルを開くボタン -->
-  <button id="btn">モーダルを開く</button>
+<main>
+  <section id="about">
+    <h1>About Me</h1>
+    <p>ここに自己紹介を記載します。学歴や現在の職業、興味分野などをまとめましょう。</p>
+  </section>
 
-  <!-- モーダル本体 -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span id="modal-close">&times;</span>
-      <p>ここにモーダルの内容を入れます。</p>
-    </div>
-  </div>
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>Python</li>
+      <li>データ分析 (Pandas, NumPy)</li>
+      <li>Web開発 (HTML, CSS, JavaScript)</li>
+      <li>機械学習 (scikit-learn, TensorFlow)</li>
+      <!-- 必要に応じて追加 -->
+    </ul>
+  </section>
 
-  <script src="script.js"></script>
+  <section id="diary">
+    <h2>Diary</h2>
+    <ul>
+      <li><a href="diary.html">2025-06-28: サイト構築の進捗</a></li>
+      <li><a href="diary.html">2025-06-27: GitHub Pages 設定</a></li>
+      <!-- 日記エントリを追加 -->
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+  </section>
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
