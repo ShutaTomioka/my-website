@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="scroll-progress-bar"></div>
+
   <header class="site-header">
     <nav class="navbar container">
       <a href="#hero" class="logo">Shuta</a>
@@ -27,6 +29,7 @@
 
   <main>
     <section id="hero" class="hero">
+      <div id="particles-js" class="particles"></div>
       <div class="hero-content">
         <h1>Welcome to My Website</h1>
         <p>Data Scientist & Web Developer based in Tokyo.</p>
@@ -37,16 +40,43 @@
     <section id="about" class="container section-padding fade-in">
       <h2>About Me</h2>
       <p>Hey, I’m Shuta. Originally from Kansai, now living in Tokyo. I graduated from Kobe University in Data Science (2025), specializing in aircraft fuel consumption. Currently working at Kao Corporation in the data science team, living in Sumida City.</p>
+      <div class="visitor-counter">
+        <p>You are visitor number <span id="visitor-count">...</span></p>
+      </div>
     </section>
 
     <section id="skills" class="container section-padding fade-in">
       <h2>Skills</h2>
       <div class="grid skills-grid">
-        <div class="card"><h3>Python</h3><p>Pandas · NumPy · scikit-learn</p></div>
-        <div class="card"><h3>Web Dev</h3><p>HTML · CSS · JavaScript</p></div>
-        <div class="card"><h3>ML</h3><p>TensorFlow · PyTorch</p></div>
-        <div class="card"><h3>Data Viz</h3><p>Matplotlib · Plotly</p></div>
+        <div class="card"><h3>Python</h3><div class="skill-bar"><div class="skill-level" data-level="90"></div></div></div>
+        <div class="card"><h3>Web Dev</h3><div class="skill-bar"><div class="skill-level" data-level="75"></div></div></div>
+        <div class="card"><h3>ML</h3><div class="skill-bar"><div class="skill-level" data-level="85"></div></div></div>
+        <div class="card"><h3>Data Viz</h3><div class="skill-bar"><div class="skill-level" data-level="80"></div></div></div>
       </div>
+    </section>
+    
+    <section id="faq" class="container section-padding fade-in">
+        <h2>FAQ</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">Q1: What is your primary focus in Data Science?</button>
+                <div class="accordion-content">
+                    <p>My primary focus is on developing machine learning models for predictive analytics, with a special interest in time-series forecasting and optimization problems, such as aircraft fuel consumption.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">Q2: Do you do freelance work?</button>
+                <div class="accordion-content">
+                    <p>I am currently focused on my work at Kao Corporation. However, I am open to discussing interesting side projects. Please feel free to reach out via the contact form!</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">Q3: What technologies do you use for web development?</button>
+                <div class="accordion-content">
+                    <p>For this personal site, I used HTML, CSS, and vanilla JavaScript. I enjoy creating lightweight, fast, and accessible websites.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="diary" class="container section-padding fade-in">
@@ -70,11 +100,16 @@
 
     <section id="gallery" class="container section-padding fade-in">
       <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <img src="images/photo1.jpg" alt="Photo 1" loading="lazy">
-        <img src="images/photo2.jpg" alt="Photo 2" loading="lazy">
-        <img src="images/photo3.jpg" alt="Photo 3" loading="lazy">
-        <img src="images/photo4.jpg" alt="Photo 4" loading="lazy">
+      <div class="swiper-container gallery-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="images/photo1.jpg" alt="Photo 1" loading="lazy"></div>
+          <div class="swiper-slide"><img src="images/photo2.jpg" alt="Photo 2" loading="lazy"></div>
+          <div class="swiper-slide"><img src="images/photo3.jpg" alt="Photo 3" loading="lazy"></div>
+          <div class="swiper-slide"><img src="images/photo4.jpg" alt="Photo 4" loading="lazy"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
     </section>
 
@@ -98,6 +133,14 @@
     <div class="container"><p>&copy; 2025 Shuta. All rights reserved.</p></div>
   </footer>
 
+  <div id="image-modal" class="image-modal">
+      <span class="close-modal">&times;</span>
+      <img class="modal-content" id="modal-image">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>

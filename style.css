@@ -19,7 +19,7 @@
   padding: 0;
 }
 html {
-  scroll-behavior: smooth; /* スムーズスクロールをCSSで実装 */
+  scroll-behavior: smooth;
 }
 body {
   font-family: 'Roboto', sans-serif;
@@ -27,7 +27,7 @@ body {
   color: var(--text-light);
   line-height: 1.6;
   transition: background var(--transition), color var(--transition);
-  padding-top: var(--header-height); /* 固定ヘッダーの高さ分、コンテンツを下にずらす */
+  padding-top: var(--header-height);
 }
 .container {
   max-width: 1040px;
@@ -35,7 +35,7 @@ body {
   padding: 0 1rem;
 }
 .section-padding {
-  padding: 4rem 1rem; /* セクションの上下に均一な余白を追加 */
+  padding: 4rem 1rem;
 }
 .site-header {
   position: fixed;
@@ -43,10 +43,13 @@ body {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background: var(--bg-light);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: transparent;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
   z-index: 1000;
-  transition: background var(--transition);
+}
+.site-header.scrolled {
+    background: var(--bg-light);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .navbar {
   display: flex;
@@ -58,8 +61,13 @@ body {
   font-size: 1.75rem;
   font-weight: 700;
   text-decoration: none;
-  color: var(--text-light);
-  transition: color var(--transition);
+  color: #fff;
+  transition: color 0.5s ease;
+}
+.site-header.scrolled .logo,
+.site-header.scrolled .nav-menu a,
+.site-header.scrolled .nav-menu .theme-toggle {
+    color: var(--text-light);
 }
 .nav-menu {
   list-style: none;
@@ -70,7 +78,7 @@ body {
 .nav-menu a,
 .nav-menu .theme-toggle {
   text-decoration: none;
-  color: var(--text-light);
+  color: #fff;
   font-weight: 500;
   background: none;
   border: none;
@@ -84,27 +92,50 @@ body {
 .nav-toggle { display: none; }
 .nav-menu.open { display: flex; }
 
+/* Scroll Progress Bar */
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 5px;
+    background: var(--primary);
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+
 /* Hero */
 .hero {
-  height: calc(100vh - var(--header-height));
+  height: 100vh;
   background: url('images/hero-bg.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
+}
+/* パーティクル背景 */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 .hero::after {
   content: '';
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.6);
+  z-index: 1;
 }
 .hero-content {
   position: relative;
   text-align: center;
   color: #fff;
-  z-index: 1;
+  z-index: 2;
   padding: 1rem;
 }
 .hero-content h1 {
@@ -144,6 +175,13 @@ body {
   background: var(--primary);
   color: #fff;
 }
+.visitor-counter {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+}
 
 /* Sections */
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -164,23 +202,152 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: transform var(--transition), box-shadow var(--transition);
-  border: 1px solid rgba(0,0,0,0.05); /* 境界線を追加 */
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
 }
 .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
 .card h3 { margin-bottom: 0.5rem; color: var(--primary); }
-
-/* Gallery images */
-.gallery-grid img {
-  width: 100%;
-  height: 200px;
-  border-radius: 8px;
-  object-fit: cover;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.card p { margin-bottom: 1.5rem; }
+.diary-grid .card a {
+    margin-top: auto;
 }
-.gallery-grid img:hover {
-  transform: scale(1.05) rotate(2deg); /* 回転アニメーションを追加 */
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+
+/* スキルバーのデザイン */
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+[data-theme="dark"] .skill-bar {
+    background: #444;
+}
+.skill-level {
+    height: 100%;
+    background: var(--primary);
+    width: 0;
+    transition: width 1.5s ease-out;
+}
+.skills-grid.visible .skill-level {
+    animation: skill-bar-fill 1.5s forwards;
+}
+@keyframes skill-bar-fill {
+    from { width: 0; }
+    to { width: var(--level); }
+}
+
+/* Swiper スライダーのデザイン */
+.gallery-swiper {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer; /* クリック可能であることを示す */
+}
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--primary) !important;
+}
+.swiper-pagination-bullet-active {
+    background: var(--primary) !important;
+}
+
+/* Accordion FAQ */
+.accordion-item {
+    border-bottom: 1px solid #ddd;
+}
+.accordion-header {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-light);
+    transition: background-color 0.2s ease;
+}
+.accordion-header::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+.accordion-header.active::after {
+    content: '-';
+    transform: rotate(180deg);
+}
+.accordion-header:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+[data-theme="dark"] .accordion-header:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding: 0 1.5rem;
+}
+.accordion-content.open {
+    max-height: 500px; /* 十分な高さを確保 */
+    padding: 1.5rem;
+}
+
+/* Image Modal */
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  animation: zoom 0.6s;
+}
+@keyframes zoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.close-modal:hover, .close-modal:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* Contact Form */
@@ -266,8 +433,11 @@ body {
     font-size: 1.75rem;
     background: none;
     border: none;
-    color: var(--text-light);
+    color: #fff;
     cursor: pointer;
+  }
+  .site-header.scrolled .nav-toggle {
+      color: var(--text-light);
   }
   .nav-menu li {
     width: 100%;
