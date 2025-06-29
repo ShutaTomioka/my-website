@@ -1,146 +1,222 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shuta's personal site featuring about, skills, diary, gallery, and contact form">
-  <title>Shuta's Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shuta's personal site featuring about, skills, diary, gallery, and contact form">
+    <title>Shuta's Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="scroll-progress-bar"></div>
+    <!-- スクロール進捗バーを追加 -->
+    <div class="scroll-progress-bar"></div>
 
-  <header class="site-header">
-    <nav class="navbar container">
-      <a href="#hero" class="logo">Shuta</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#diary">Diary</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
-      </ul>
-    </nav>
-  </header>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a href="#hero" class="logo">Shuta</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#purpose">Purpose</a></li>
+                <li><a href="#diary">Diary</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-    <section id="hero" class="hero">
-      <div id="particles-js" class="particles"></div>
-      <div class="hero-content">
-        <h1>Welcome to My Website</h1>
-        <p>Data Scientist & Web Developer based in Tokyo.</p>
-        <a href="#about" class="btn-primary">Learn More</a>
-      </div>
-    </section>
+    <main>
+        <section id="hero" class="hero">
+            <!-- Particle.js のための要素 -->
+            <div id="particles-js" class="particles"></div>
+            <div class="hero-content">
+                <h1>Welcome to My Website</h1>
+                <p>Data Scientist & Web Developer based in Tokyo.</p>
+                <a href="#about" class="btn-primary">Learn More</a>
+            </div>
+        </section>
 
-    <section id="about" class="container section-padding fade-in">
-      <h2>About Me</h2>
-      <p>Hey, I’m Shuta. Originally from Kansai, now living in Tokyo. I graduated from Kobe University in Data Science (2025), specializing in aircraft fuel consumption. Currently working at Kao Corporation in the data science team, living in Sumida City.</p>
-      <div class="visitor-counter">
-        <p>You are visitor number <span id="visitor-count">...</span></p>
-      </div>
-    </section>
+        <section id="about" class="container section-padding fade-in">
+            <h2>About Me</h2>
+            <p>Hi, I’m Shuta. Originally from Kansai, now living in Tokyo. I graduated from Kobe University in Data
+                Science (2025), specializing in aircraft fuel consumption. Currently working at Kao Corporation in the
+                data science team, living in Sumida City.</p>
+        </section>
 
-    <section id="skills" class="container section-padding fade-in">
-      <h2>Skills</h2>
-      <div class="grid skills-grid">
-        <div class="card"><h3>Python</h3><div class="skill-bar"><div class="skill-level" data-level="90"></div></div></div>
-        <div class="card"><h3>Web Dev</h3><div class="skill-bar"><div class="skill-level" data-level="75"></div></div></div>
-        <div class="card"><h3>ML</h3><div class="skill-bar"><div class="skill-level" data-level="85"></div></div></div>
-        <div class="card"><h3>Data Viz</h3><div class="skill-bar"><div class="skill-level" data-level="80"></div></div></div>
-      </div>
-    </section>
-    
-    <section id="faq" class="container section-padding fade-in">
-        <h2>FAQ</h2>
-        <div class="accordion">
-            <div class="accordion-item">
-                <button class="accordion-header">Q1: What is your primary focus in Data Science?</button>
-                <div class="accordion-content">
-                    <p>My primary focus is on developing machine learning models for predictive analytics, with a special interest in time-series forecasting and optimization problems, such as aircraft fuel consumption.</p>
+        <section id="purpose" class="container section-padding fade-in">
+            <h2>Why I Built This Site</h2>
+            <p>
+                I built this website as a personal project to deepen my knowledge of web development. Currently, I am
+                focused on mastering HTML, CSS, and JavaScript. This project also serves as a creative outlet for
+                building a digital space of my own.
+            </p>
+        </section>
+
+        <!-- 研究実績セクションを追加 -->
+        <section id="research" class="container section-padding fade-in">
+            <h2>Research & Projects</h2>
+            <div class="grid research-grid">
+                <div class="card">
+                    <h3>Aircraft Fuel Consumption Reduction through Climb Optimization</h3>
+                    <p>My graduation thesis at Kobe University focused on verifying the **fuel consumption reduction
+                        effect of optimized aircraft climb procedures using actual operational flight data**. I
+                        investigated the effectiveness of switching from the traditional VNAV SPD mode (Maximum Climb
+                        Thrust) to the V/S (Vertical Speed) mode during the mid-phase of climb, aiming to reduce engine
+                        thrust and improve fuel efficiency.</p>
+                    <p>Using **four months of test flight data from Lufthansa Cargo's Boeing 777F aircraft**, my study
+                        analyzed the impact of external factors such as aircraft weight, outside air temperature (ISA
+                        deviation), wind speed, and wind direction on fuel efficiency. I developed Python scripts for
+                        **automated data extraction and cleaning**, ensuring high-quality data for analysis.</p>
+                    <p>The research demonstrated a potential **fuel saving of approximately 35-40 pounds per flight**
+                        compared to conventional methods, aligning with prior simulation-based studies. This approach
+                        contributes to both economic savings and a significant reduction in CO2 emissions for airlines.
+                        The findings provide practical guidelines for airlines to select optimal climb methods based on
+                        specific conditions (e.g., lower temperatures and moderate aircraft weights for 600-4000 ft/min
+                        climb method). </p>
+                </div>
+                <div class="card">
+                    <h3>AEON NEXT Senko Hanabi Coupon Project</h3>
+                    <p>As part of my professional experience, I contributed to the **AEON NEXT "Senko Hanabi Coupon"
+                        project**. This initiative aimed to significantly improve last-mile delivery efficiency for
+                        AEON's online supermarket "Green Beans". I was responsible for writing the **source code** for
+                        this project, which leveraged data science and AI to optimize delivery routes and coupon
+                        distribution, demonstrating a practical application of advanced analytics in retail logistics.
+                    </p>
                 </div>
             </div>
-            <div class="accordion-item">
-                <button class="accordion-header">Q2: Do you do freelance work?</button>
-                <div class="accordion-content">
-                    <p>I am currently focused on my work at Kao Corporation. However, I am open to discussing interesting side projects. Please feel free to reach out via the contact form!</p>
+        </section>
+
+        <section id="skills" class="container section-padding fade-in">
+            <h2>Skills & Projects</h2>
+            <div class="grid skills-grid">
+                <div class="card">
+                    <h3>Python & ML</h3>
+                    <p>I primarily use **Python** to build machine learning models, specializing in predictive analysis
+                        and advanced algorithms.</p>
+                </div>
+                <div class="card">
+                    <h3>Web Development</h3>
+                    <p>This website is my hands-on project to improve my skills in **HTML, CSS, and JavaScript**. I'm
+                        learning to create interactive user interfaces and build responsive, accessible web applications
+                        from scratch.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Visualization</h3>
+                    <p>I leverage libraries like **Matplotlib** to transform complex data into clear, compelling
+                        visualizations, which helps communicate key insights to stakeholders.</p>
                 </div>
             </div>
-            <div class="accordion-item">
-                <button class="accordion-header">Q3: What technologies do you use for web development?</button>
-                <div class="accordion-content">
-                    <p>For this personal site, I used HTML, CSS, and vanilla JavaScript. I enjoy creating lightweight, fast, and accessible websites.</p>
+        </section>
+
+
+
+        <section id="diary" class="container section-padding fade-in">
+            <h2>Diary</h2>
+            <!-- 日記投稿ボタンを配置 -->
+            <div class="diary-action">
+                <button id="open-diary-modal-btn" class="btn-primary">Write Today's Diary</button>
+            </div>
+
+            <h2>Latest Entries</h2>
+            <div id="diary-entries" class="grid diary-grid">
+                <article class="card">
+                    <h3>2025-06-28</h3>
+                    <p>Launched my first personal website. Added dark mode, gallery, and contact form.</p>
+                    <a href="#diary-full" class="btn-secondary read-more-btn">Read More</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="diary-full" class="container diary-page section-padding fade-in" style="display: none;">
+            <article class="card">
+                <h1>2025-06-28: Create and Launch the Website</h1>
+                <p>Today I launched my very first personal website. It features my skills, daily life updates, gallery,
+                    and more. Feel free to browse around!</p>
+                <p><a href="#diary" class="btn-secondary back-to-diary-btn">← Back to Latest Diary</a></p>
+            </article>
+        </section>
+
+        <section id="gallery" class="container section-padding fade-in">
+            <h2>Gallery</h2>
+            <!-- SwiperJS のためのコンテナ -->
+            <div class="swiper-container gallery-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="images/photo1.jpg" alt="Sorry,Its now building." loading="lazy">
+                    </div>
+                    <div class="swiper-slide"><img src="images/photo2.jpg" alt="Sorry,Its now building." loading="lazy">
+                    </div>
+                    <div class="swiper-slide"><img src="images/photo3.jpg" alt="Sorry,Its now building." loading="lazy">
+                    </div>
+                    <div class="swiper-slide"><img src="images/photo4.jpg" alt="Sorry,Its now building." loading="lazy">
+                    </div>
                 </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="container section-padding fade-in">
+            <h2>Contact Me</h2>
+            <form action="https://formspree.io/f/mnaykbyv" method="POST" class="contact-form">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+                <button type="submit" class="btn-primary">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <button id="to-top" class="to-top" aria-label="Back to top">↑</button>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Shuta. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 画像モーダルウィンドウの要素 -->
+    <div id="image-modal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+
+    <!-- 日記投稿モーダルの要素 -->
+    <div id="diary-modal" class="modal">
+        <div class="modal-content-wrapper">
+            <span class="close-modal diary-close-modal">&times;</span>
+            <div class="modal-card">
+                <h3>日記を書く</h3>
+                <label for="modal-diary-date">日付:</label>
+                <input type="date" id="modal-diary-date">
+                <label for="modal-new-diary-entry">内容:</label>
+                <textarea id="modal-new-diary-entry" placeholder="今日あったことを書いてください..."></textarea>
+                <label for="modal-diary-password">パスワード:</label>
+                <input type="password" id="modal-diary-password" placeholder="管理者パスワード">
+                <button id="modal-post-diary-btn" class="btn-primary">投稿</button>
+                <p id="modal-diary-message" class="error-message"></p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="diary" class="container section-padding fade-in">
-      <h2>Latest Diary</h2>
-      <div class="grid diary-grid">
-        <article class="card">
-          <h3>2025-06-28</h3>
-          <p>Launched my first personal website. Added dark mode, gallery, and contact form.</p>
-          <a href="#diary-full" class="btn-secondary read-more-btn">Read More</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="diary-full" class="container diary-page section-padding fade-in" style="display: none;">
-      <article class="card">
-        <h1>2025-06-28: Create and Launch the Website</h1>
-        <p>Today I launched my very first personal website. It features my skills, daily life updates, gallery, and more. Feel free to browse around!</p>
-        <p><a href="#diary" class="btn-secondary back-to-diary-btn">← Back to Latest Diary</a></p>
-      </article>
-    </section>
-
-    <section id="gallery" class="container section-padding fade-in">
-      <h2>Gallery</h2>
-      <div class="swiper-container gallery-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="images/photo1.jpg" alt="Photo 1" loading="lazy"></div>
-          <div class="swiper-slide"><img src="images/photo2.jpg" alt="Photo 2" loading="lazy"></div>
-          <div class="swiper-slide"><img src="images/photo3.jpg" alt="Photo 3" loading="lazy"></div>
-          <div class="swiper-slide"><img src="images/photo4.jpg" alt="Photo 4" loading="lazy"></div>
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    </section>
-
-    <section id="contact" class="container section-padding fade-in">
-      <h2>Contact Me</h2>
-      <form action="https://formspree.io/f/mnaykbyv" method="POST" class="contact-form">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required>
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
-        <button type="submit" class="btn-primary">Send</button>
-      </form>
-    </section>
-  </main>
-
-  <button id="to-top" class="to-top" aria-label="Back to top">↑</button>
-
-  <footer class="site-footer">
-    <div class="container"><p>&copy; 2025 Shuta. All rights reserved.</p></div>
-  </footer>
-
-  <div id="image-modal" class="image-modal">
-      <span class="close-modal">&times;</span>
-      <img class="modal-content" id="modal-image">
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="script.js" defer></script>
+    <!-- 外部ライブラリの読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="script.js" defer></script>
 </body>
+
 </html>

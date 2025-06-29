@@ -8,11 +8,44 @@ function setupNav(toggleId, menuId) {
         const isExpanded = menu.classList.contains('open');
         btn.setAttribute('aria-expanded', isExpanded);
       });
+      // メニュー内のリンクをクリックした際にメニューを閉じる
       menu.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', () => {
           menu.classList.remove('open');
           btn.setAttribute('aria-expanded', 'false');
         });
+      });
+    }
+  }
+  
+  // Particle.js の初期化
+  function setupParticles(theme) {
+    // Particle.jsライブラリが読み込まれているか確認
+    if (typeof particlesJS !== 'undefined') {
+      // テーマに応じて粒子の色と線の色を動的に設定
+      const particlesColor = theme === 'dark' ? '#ffffff' : '#aaa'; 
+      
+      // 既存のParticle.jsインスタンスを削除して再初期化（再設定のため）
+      const particleCanvas = document.getElementById('particles-js');
+      if (particleCanvas) {
+          particleCanvas.innerHTML = '';
+      }
+  
+      particlesJS('particles-js', {
+        "particles": {
+          "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": particlesColor }, 
+          "shape": { "type": "circle" },
+          "opacity": { "value": 0.5, "random": false },
+          "size": { "value": 3, "random": true },
+          "line_linked": { "enable": true, "distance": 150, "color": particlesColor, "opacity": 0.4, "width": 1 },
+          "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+        },
+        "retina_detect": true
       });
     }
   }
@@ -24,17 +57,27 @@ function setupNav(toggleId, menuId) {
       const currentTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', currentTheme);
       
+      // ページロード時に現在のテーマで粒子を初期化
+      setupParticles(currentTheme); 
+      
       themeToggles.forEach(btn => {
+        // ボタンのアイコンとaria-labelを初期テーマに合わせて設定
+        const icon = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+        btn.textContent = icon;
+        btn.setAttribute('aria-label', icon === '☀️' ? 'Toggle light theme' : 'Toggle dark theme');
+  
         btn.addEventListener('click', () => {
           const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
           document.documentElement.setAttribute('data-theme', nextTheme);
           localStorage.setItem('theme', nextTheme);
+          
+          // ボタンのアイコンを切り替える
           btn.textContent = nextTheme === 'dark' ? '☀️' : '🌙';
           btn.setAttribute('aria-label', nextTheme === 'dark' ? 'Toggle light theme' : 'Toggle dark theme');
+          
+          // テーマ変更後に粒子を再初期化して色を切り替える
+          setupParticles(nextTheme); 
         });
-        const icon = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
-        btn.textContent = icon;
-        btn.setAttribute('aria-label', icon === '☀️' ? 'Toggle light theme' : 'Toggle dark theme');
       });
     }
   }
@@ -73,7 +116,114 @@ function setupNav(toggleId, menuId) {
     }
   }
   
-  // セクションがビューポートに入ったらアニメーションを適用 (スキルバーアニメーションも含む)
+  // 日記投稿モーダルの制御
+  function setupDiaryPostModal() {
+    const openModalBtn = document.getElementById('open-diary-modal-btn');
+    const diaryModal = document.getElementById('diary-modal');
+    const closeModalSpan = document.querySelector('.diary-close-modal');
+    const postBtn = document.getElementById('modal-post-diary-btn');
+    const dateInput = document.getElementById('modal-diary-date');
+    const textarea = document.getElementById('modal-new-diary-entry');
+    const passwordInput = document.getElementById('modal-diary-password');
+    const diaryMessage = document.getElementById('modal-diary-message');
+    const diaryContainer = document.getElementById('diary-entries');
+  
+    const ADMIN_PASSWORD = 'shuta0426'; // 管理者パスワードを定義
+  
+    // モーダルを開くボタン
+    if (openModalBtn) {
+      openModalBtn.addEventListener('click', () => {
+        diaryModal.style.display = 'flex';
+        // モーダルを開く際に現在の日付をデフォルトで設定
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${year}-${month}-${day}`;
+        
+        // テキストエリアとパスワードをクリア
+        textarea.value = '';
+        passwordInput.value = '';
+        diaryMessage.textContent = '';
+        diaryMessage.style.display = 'none';
+      });
+    }
+  
+    // モーダルを閉じるボタン (x印)
+    if (closeModalSpan) {
+      closeModalSpan.addEventListener('click', () => {
+        diaryModal.style.display = 'none';
+      });
+    }
+  
+    // モーダルの外側をクリックして閉じる
+    if (diaryModal) {
+      diaryModal.addEventListener('click', (e) => {
+        if (e.target === diaryModal) {
+          diaryModal.style.display = 'none';
+        }
+      });
+    }
+  
+    // 日記投稿ボタン
+    if (postBtn && dateInput && textarea && passwordInput && diaryMessage && diaryContainer) {
+      postBtn.addEventListener('click', () => {
+        const selectedDate = dateInput.value;
+        const entryText = textarea.value.trim();
+        const enteredPassword = passwordInput.value;
+  
+        diaryMessage.textContent = ''; // エラーメッセージをリセット
+        diaryMessage.style.display = 'none';
+  
+        if (!selectedDate) {
+          diaryMessage.textContent = '日付を選択してください。';
+          diaryMessage.style.color = 'var(--error-color)';
+          diaryMessage.style.display = 'block';
+          return;
+        }
+  
+        if (!entryText) {
+          diaryMessage.textContent = '日記の内容を入力してください。';
+          diaryMessage.style.color = 'var(--error-color)';
+          diaryMessage.style.display = 'block';
+          return;
+        }
+  
+        if (enteredPassword !== ADMIN_PASSWORD) {
+          diaryMessage.textContent = 'パスワードが正しくありません。';
+          diaryMessage.style.color = 'var(--error-color)';
+          diaryMessage.style.display = 'block';
+          return;
+        }
+        
+        // 新しい日記エントリのHTMLを作成
+        const newEntryHTML = `
+          <article class="card">
+            <h3>${selectedDate}</h3>
+            <p>${entryText.replace(/\n/g, '<br>')}</p>
+          </article>
+        `;
+        
+        // 新しいエントリをリストの先頭に追加
+        diaryContainer.insertAdjacentHTML('afterbegin', newEntryHTML);
+        
+        // テキストエリア、パスワード、メッセージをクリア/更新
+        textarea.value = '';
+        passwordInput.value = '';
+        diaryMessage.textContent = '日記を投稿しました！';
+        diaryMessage.style.color = 'var(--primary)'; // 成功メッセージはプライマリカラーで
+        diaryMessage.style.display = 'block';
+  
+        // 成功メッセージは短時間で消し、モーダルを閉じる
+        setTimeout(() => {
+          diaryMessage.style.display = 'none';
+          diaryModal.style.display = 'none'; // 投稿成功後モーダルを閉じる
+        }, 2000); // 2秒後にメッセージを消す
+      });
+    }
+  }
+  
+  // セクションがビューポートに入ったらアニメーションを適用
   function setupScrollAnimation() {
     const observerOptions = {
       root: null,
@@ -94,28 +244,6 @@ function setupNav(toggleId, menuId) {
     });
   }
   
-  // スキルバーのアニメーションを制御
-  function animateSkillBars() {
-    const skillsSection = document.getElementById('skills');
-    if (!skillsSection) return;
-  
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const skillLevels = skillsSection.querySelectorAll('.skill-level');
-          skillLevels.forEach(level => {
-            const percentage = level.getAttribute('data-level');
-            level.style.setProperty('--level', percentage + '%');
-            level.style.width = percentage + '%';
-          });
-          observer.unobserve(skillsSection);
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    observer.observe(skillsSection);
-  }
-  
   // スクロール連動ヘッダーの制御
   function setupHeaderScroll() {
     const header = document.querySelector('.site-header');
@@ -130,29 +258,8 @@ function setupNav(toggleId, menuId) {
     });
   }
   
-  // Particle.js の初期化
-  function setupParticles() {
-    if (typeof particlesJS !== 'undefined') {
-      particlesJS('particles-js', {
-        "particles": {
-          "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-          "color": { "value": "#ffffff" },
-          "shape": { "type": "circle" },
-          "opacity": { "value": 0.5, "random": false },
-          "size": { "value": 3, "random": true },
-          "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-          "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-        },
-        "retina_detect": true
-      });
-    }
-  }
-  
-  // 訪問者カウンターの制御
+  // 訪問者カウンターは削除されたため、この関数は削除
+  /*
   async function setupVisitorCounter() {
     const countElement = document.getElementById('visitor-count');
     if (!countElement) return;
@@ -177,9 +284,10 @@ function setupNav(toggleId, menuId) {
       
     } catch (error) {
       console.error('Failed to fetch visitor count:', error);
-      countElement.textContent = '...';
+      countElement.textContent = '...'; 
     }
   }
+  */
   
   // スライダーギャラリーの初期化
   function setupGallerySwiper() {
@@ -211,28 +319,6 @@ function setupNav(toggleId, menuId) {
         }
       });
     }
-  }
-  
-  // アコーディオンFAQの制御
-  function setupAccordion() {
-      const accordionHeaders = document.querySelectorAll('.accordion-header');
-      accordionHeaders.forEach(header => {
-          header.addEventListener('click', () => {
-              const content = header.nextElementSibling;
-              
-              // 既に開いているアコーディオンを閉じる
-              document.querySelectorAll('.accordion-content.open').forEach(item => {
-                  if (item !== content) {
-                      item.classList.remove('open');
-                      item.previousElementSibling.classList.remove('active');
-                  }
-              });
-              
-              // クリックしたアコーディオンを開閉
-              content.classList.toggle('open');
-              header.classList.toggle('active');
-          });
-      });
   }
   
   // スクロール進捗バーの制御
@@ -279,13 +365,12 @@ function setupNav(toggleId, menuId) {
     setupThemeToggle('theme-toggle');
     setupToTop('to-top');
     setupDiaryToggle();
+    setupDiaryPostModal(); // 日記投稿モーダル機能の呼び出し
     setupScrollAnimation();
-    animateSkillBars();
     setupHeaderScroll();
-    setupParticles();
-    setupVisitorCounter();
+    // setupVisitorCounter(); // 訪問者カウンターを削除
     setupGallerySwiper();
-    setupAccordion();
     setupProgressBar();
     setupImageModal();
   });
+  
