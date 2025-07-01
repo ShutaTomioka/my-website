@@ -116,8 +116,6 @@
             </div>
         </section>
 
-
-
         <section id="diary" class="container section-padding fade-in">
             <h2>Diary</h2>
             <!-- 日記投稿ボタンを配置 -->
@@ -125,34 +123,32 @@
                 <button id="open-diary-modal-btn" class="btn-primary">Write Today's Diary</button>
             </div>
 
-            <h2>Latest Entries</h2>
-            <div id="diary-entries" class="grid diary-grid">
-                <article class="card">
-                    <h3>2025-06-30</h3>
-                    <p>Today is the last day of June. Time flies!</p>
-                    <a href="#diary-full" class="btn-secondary read-more-btn">Read More</a>
-                </article>
+            <!-- 最新の日記表示エリア -->
+            <h3>Latest Entry</h3>
+            <div id="latest-diary-display" class="card diary-display-card">
+                <p>Loading latest diary...</p>
+            </div>
+
+            <!-- 日付選択と閲覧エリア -->
+            <h3>View Diary by Date</h3>
+            <div class="diary-viewer-controls">
+                <label for="view-diary-date">Select Date:</label>
+                <input type="date" id="view-diary-date">
+                <button id="view-diary-btn" class="btn-secondary">View</button>
+            </div>
+            <div id="viewed-diary-content" class="card diary-display-card">
+                <p>Select a date to view an entry.</p>
             </div>
         </section>
 
-        <section id="diary-full" class="container diary-page section-padding fade-in" style="display: none;">
-            <article class="card">
-                <h1>2025-06-28: Create and Launch the Website</h1>
-                <p>Today I launched my very first personal website. It features my skills, daily life updates, gallery,
-                    and more. Feel free to browse around!</p>
-                <p><a href="#diary" class="btn-secondary back-to-diary-btn">← Back to Latest Diary</a></p>
+        <!-- 全ての日記エントリを格納する非表示セクション -->
+        <section id="diary-full" style="display: none;">
+            <article data-date="2025-07-01">
+                <h1>2025-07-01: Research and Personal Info Update</h1>
+                <p>I am adding some information about my research experiences and personal details, and it's a lot of work due to my lack of skills. 
+In my job, I may not use HTML, CSS, or Java in the near future, but I am doing so because it could be a crucial point in solving important tasks.</p>
             </article>
-            <article class="card">
-                <h1>2025-06-29: Update website</h1>
-                <p>I am adding some information about my research experiences and personal details, and it's a lot of
-                    work due to
-                    my lack of skills.
-                    In my job, I may not use HTML, CSS, or Java in the near future, but I am doing so because it could
-                    be a crucial
-                    point in solving important tasks.</p>
-                <p><a href="#diary" class="btn-secondary back-to-diary-btn">← Back to Latest Diary</a></p>
-            </article>
-            <article class="card">
+            <article data-date="2025-06-30">
                 <h1>2025-06-30: Today is the last day of June. Time flies!</h1>
                 <p>
                     Today is the last day of June.
@@ -162,10 +158,21 @@
                     also other reasons.
                     I want to live a life where I can enjoy every moment — not just the happy ones, but also the sad and
                     boring ones.
-
-
                 </p>
-                <p><a href="#diary" class="btn-secondary back-to-diary-btn">← Back to Latest Diary</a></p>
+            </article>
+            <article data-date="2025-06-29">
+                <h1>2025-06-29: Update website</h1>
+                <p>I am adding some information about my research experiences and personal details, and it's a lot of
+                    work due to
+                    my lack of skills.
+                    In my job, I may not use HTML, CSS, or Java in the near future, but I am doing so because it could
+                    be a crucial
+                    point in solving important tasks.</p>
+            </article>
+            <article data-date="2025-06-28">
+                <h1>2025-06-28: Create and Launch the Website</h1>
+                <p>Today I launched my very first personal website. It features my skills, daily life updates, gallery,
+                    and more. Feel free to browse around!</p>
             </article>
         </section>
 

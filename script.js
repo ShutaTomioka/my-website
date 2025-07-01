@@ -1,4 +1,3 @@
-// ナビゲーションメニューの開閉を制御
 function setupNav(toggleId, menuId) {
     const btn = document.getElementById(toggleId);
     const menu = document.getElementById(menuId);
@@ -20,17 +19,12 @@ function setupNav(toggleId, menuId) {
   
   // Particle.js の初期化
   function setupParticles(theme) {
-    // Particle.jsライブラリが読み込まれているか確認
     if (typeof particlesJS !== 'undefined') {
-      // テーマに応じて粒子の色と線の色を動的に設定
       const particlesColor = theme === 'dark' ? '#ffffff' : '#aaa'; 
-      
-      // 既存のParticle.jsインスタンスを削除して再初期化（再設定のため）
       const particleCanvas = document.getElementById('particles-js');
       if (particleCanvas) {
           particleCanvas.innerHTML = '';
       }
-  
       particlesJS('particles-js', {
         "particles": {
           "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
@@ -56,12 +50,9 @@ function setupNav(toggleId, menuId) {
     if (themeToggles.length > 0) {
       const currentTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', currentTheme);
-      
-      // ページロード時に現在のテーマで粒子を初期化
       setupParticles(currentTheme); 
       
       themeToggles.forEach(btn => {
-        // ボタンのアイコンとaria-labelを初期テーマに合わせて設定
         const icon = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
         btn.textContent = icon;
         btn.setAttribute('aria-label', icon === '☀️' ? 'Toggle light theme' : 'Toggle dark theme');
@@ -70,12 +61,8 @@ function setupNav(toggleId, menuId) {
           const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
           document.documentElement.setAttribute('data-theme', nextTheme);
           localStorage.setItem('theme', nextTheme);
-          
-          // ボタンのアイコンを切り替える
           btn.textContent = nextTheme === 'dark' ? '☀️' : '🌙';
           btn.setAttribute('aria-label', nextTheme === 'dark' ? 'Toggle light theme' : 'Toggle dark theme');
-          
-          // テーマ変更後に粒子を再初期化して色を切り替える
           setupParticles(nextTheme); 
         });
       });
@@ -95,28 +82,128 @@ function setupNav(toggleId, menuId) {
     }
   }
   
-  // 日記の表示・非表示を切り替える機能
+  // 日記の表示・非表示を切り替える機能 (diary-full を表示/非表示)
   function setupDiaryToggle() {
     const readMoreBtn = document.querySelector('.read-more-btn');
     const diaryFullSection = document.getElementById('diary-full');
-    const backBtn = document.querySelector('.back-to-diary-btn');
-    const latestDiarySection = document.getElementById('diary');
-    
-    if (readMoreBtn && diaryFullSection && backBtn && latestDiarySection) {
+    const backToDiaryBtns = document.querySelectorAll('.back-to-diary-btn'); // 複数になる可能性
+  
+    if (readMoreBtn && diaryFullSection) {
       readMoreBtn.addEventListener('click', (e) => {
         e.preventDefault();
         diaryFullSection.style.display = 'block';
         diaryFullSection.scrollIntoView({ behavior: 'smooth' });
       });
-      backBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        diaryFullSection.style.display = 'none';
-        latestDiarySection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    if (backToDiaryBtns.length > 0) {
+      backToDiaryBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (diaryFullSection) {
+            diaryFullSection.style.display = 'none';
+          }
+          document.getElementById('diary').scrollIntoView({ behavior: 'smooth' });
+        });
       });
     }
   }
   
-  // 日記投稿モーダルの制御
+  // 最新の日記エントリを diary-full から取得して表示する関数
+  function displayLatestDiary() {
+      const latestDiaryDisplay = document.getElementById('latest-diary-display');
+      const diaryFullSection = document.getElementById('diary-full');
+  
+      if (!latestDiaryDisplay || !diaryFullSection) {
+          console.warn('Elements for latest diary display not found.');
+          return;
+      }
+  
+      // diary-full 内の最初の子要素（最新の日記）を取得
+      const latestEntryArticle = diaryFullSection.querySelector('article');
+  
+      if (latestEntryArticle) {
+          const date = latestEntryArticle.querySelector('h1')?.textContent.split(':')[0].trim() || '日付不明';
+          const content = latestEntryArticle.querySelector('p')?.innerHTML || '内容なし';
+          
+          latestDiaryDisplay.innerHTML = `
+              <h3>${date}</h3>
+              <p>${content}</p>
+          `;
+      } else {
+          latestDiaryDisplay.innerHTML = `<p>まだ日記がありません。</p>`;
+      }
+  }
+  
+  // 特定の日付の日記エントリを diary-full から取得して表示する関数
+  function fetchAndDisplaySpecificDiary(date) {
+      const viewedDiaryContent = document.getElementById('viewed-diary-content');
+      const diaryFullSection = document.getElementById('diary-full');
+  
+      if (!viewedDiaryContent || !diaryFullSection) {
+          console.warn('Elements for specific diary display not found.');
+          return;
+      }
+  
+      const allDiaryArticles = diaryFullSection.querySelectorAll('article');
+      let found = false;
+  
+      allDiaryArticles.forEach(article => {
+          const articleDate = article.dataset.date; // data-date 属性から日付を取得
+          if (articleDate === date) {
+              const title = article.querySelector('h1')?.textContent || '';
+              const content = article.querySelector('p')?.innerHTML || '';
+              viewedDiaryContent.innerHTML = `
+                  <h3>${title.split(':')[0].trim()}</h3>
+                  <p>${content}</p>
+              `;
+              found = true;
+          }
+      });
+  
+      if (!found) {
+          viewedDiaryContent.innerHTML = `<p>選択された日付 (${date}) の日記はありません。</p>`;
+      }
+  }
+  
+  // 日記閲覧機能のセットアップ (カレンダーとボタン)
+  function setupCalendarViewer() {
+      const dateInput = document.getElementById('view-diary-date');
+      const viewBtn = document.getElementById('view-diary-btn');
+  
+      if (dateInput && viewBtn) {
+          // 今日の日付をデフォルトで設定
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = String(today.getMonth() + 1).padStart(2, '0');
+          const day = String(today.getDate()).padStart(2, '0');
+          dateInput.value = `${year}-${month}-${day}`;
+  
+          // ページロード時に今日の日記を自動表示
+          fetchAndDisplaySpecificDiary(dateInput.value);
+  
+          // ボタンクリックで日記を閲覧
+          viewBtn.addEventListener('click', () => {
+              if (dateInput.value) {
+                  fetchAndDisplaySpecificDiary(dateInput.value);
+              } else {
+                  document.getElementById('viewed-diary-content').innerHTML = `<p style="color: var(--error-color);">日付を選択してください。</p>`;
+              }
+          });
+  
+          // 日付が変更されたら自動で日記を閲覧
+          dateInput.addEventListener('change', () => {
+              if (dateInput.value) {
+                  fetchAndDisplaySpecificDiary(dateInput.value);
+              } else {
+                  document.getElementById('viewed-diary-content').innerHTML = `<p style="color: var(--error-color);">日付を選択してください。</p>`;
+              }
+          });
+      }
+  }
+  
+  
+  // 日記投稿モーダルの制御 (一時的な表示のみ)
   function setupDiaryPostModal() {
     const openModalBtn = document.getElementById('open-diary-modal-btn');
     const diaryModal = document.getElementById('diary-modal');
@@ -126,22 +213,19 @@ function setupNav(toggleId, menuId) {
     const textarea = document.getElementById('modal-new-diary-entry');
     const passwordInput = document.getElementById('modal-diary-password');
     const diaryMessage = document.getElementById('modal-diary-message');
-    const diaryContainer = document.getElementById('diary-entries');
+    const diaryEntriesContainer = document.getElementById('diary-entries'); // 最新の日記を表示する場所
   
     const ADMIN_PASSWORD = 'shuta0426'; // 管理者パスワードを定義
   
-    // モーダルを開くボタン
     if (openModalBtn) {
       openModalBtn.addEventListener('click', () => {
         diaryModal.style.display = 'flex';
-        // モーダルを開く際に現在の日付をデフォルトで設定
         const today = new Date();
         const year = today.getFullYear();
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         dateInput.value = `${year}-${month}-${day}`;
         
-        // テキストエリアとパスワードをクリア
         textarea.value = '';
         passwordInput.value = '';
         diaryMessage.textContent = '';
@@ -149,14 +233,12 @@ function setupNav(toggleId, menuId) {
       });
     }
   
-    // モーダルを閉じるボタン (x印)
     if (closeModalSpan) {
       closeModalSpan.addEventListener('click', () => {
         diaryModal.style.display = 'none';
       });
     }
   
-    // モーダルの外側をクリックして閉じる
     if (diaryModal) {
       diaryModal.addEventListener('click', (e) => {
         if (e.target === diaryModal) {
@@ -165,14 +247,13 @@ function setupNav(toggleId, menuId) {
       });
     }
   
-    // 日記投稿ボタン
-    if (postBtn && dateInput && textarea && passwordInput && diaryMessage && diaryContainer) {
+    if (postBtn && dateInput && textarea && passwordInput && diaryMessage && diaryEntriesContainer) {
       postBtn.addEventListener('click', () => {
         const selectedDate = dateInput.value;
         const entryText = textarea.value.trim();
         const enteredPassword = passwordInput.value;
   
-        diaryMessage.textContent = ''; // エラーメッセージをリセット
+        diaryMessage.textContent = ''; 
         diaryMessage.style.display = 'none';
   
         if (!selectedDate) {
@@ -201,24 +282,24 @@ function setupNav(toggleId, menuId) {
           <article class="card">
             <h3>${selectedDate}</h3>
             <p>${entryText.replace(/\n/g, '<br>')}</p>
+            <a href="#diary-full" class="btn-secondary read-more-btn">Read More</a>
           </article>
         `;
         
-        // 新しいエントリをリストの先頭に追加
-        diaryContainer.insertAdjacentHTML('afterbegin', newEntryHTML);
+        // 最新の日記表示エリアをクリアし、新しいエントリを追加
+        diaryEntriesContainer.innerHTML = newEntryHTML;
         
-        // テキストエリア、パスワード、メッセージをクリア/更新
         textarea.value = '';
         passwordInput.value = '';
-        diaryMessage.textContent = '日記を投稿しました！';
-        diaryMessage.style.color = 'var(--primary)'; // 成功メッセージはプライマリカラーで
+        diaryMessage.textContent = '日記を投稿しました！ (この投稿は保存されません)';
+        diaryMessage.style.color = 'var(--primary)';
         diaryMessage.style.display = 'block';
   
-        // 成功メッセージは短時間で消し、モーダルを閉じる
+        // 投稿成功後、モーダルを閉じる
         setTimeout(() => {
           diaryMessage.style.display = 'none';
-          diaryModal.style.display = 'none'; // 投稿成功後モーダルを閉じる
-        }, 2000); // 2秒後にメッセージを消す
+          diaryModal.style.display = 'none';
+        }, 2000); 
       });
     }
   }
@@ -257,37 +338,6 @@ function setupNav(toggleId, menuId) {
       }
     });
   }
-  
-  // 訪問者カウンターは削除されたため、この関数は削除
-  /*
-  async function setupVisitorCounter() {
-    const countElement = document.getElementById('visitor-count');
-    if (!countElement) return;
-  
-    try {
-      const response = await fetch('https://api.countapi.xyz/hit/your-site-id/visits');
-      const data = await response.json();
-      
-      let currentCount = 0;
-      const finalCount = data.value;
-      const duration = 2000;
-      const step = Math.ceil(finalCount / (duration / 10));
-  
-      const interval = setInterval(() => {
-        currentCount += step;
-        if (currentCount >= finalCount) {
-          currentCount = finalCount;
-          clearInterval(interval);
-        }
-        countElement.textContent = currentCount.toLocaleString();
-      }, 10);
-      
-    } catch (error) {
-      console.error('Failed to fetch visitor count:', error);
-      countElement.textContent = '...'; 
-    }
-  }
-  */
   
   // スライダーギャラリーの初期化
   function setupGallerySwiper() {
@@ -359,18 +409,18 @@ function setupNav(toggleId, menuId) {
       });
   }
   
-  // 全てのセットアップ関数を実行
+  // DOMContentLoaded イベントで初期化関数を呼び出す
   document.addEventListener('DOMContentLoaded', () => {
     setupNav('nav-toggle', 'nav-menu');
     setupThemeToggle('theme-toggle');
     setupToTop('to-top');
-    setupDiaryToggle();
-    setupDiaryPostModal(); // 日記投稿モーダル機能の呼び出し
+    setupDiaryToggle(); // diary-full の表示/非表示を制御
+    setupDiaryPostModal(); // 日記投稿モーダル
+    setupCalendarViewer(); // カレンダーによる日記閲覧
+    displayLatestDiary(); // 最新日記の表示
     setupScrollAnimation();
     setupHeaderScroll();
-    // setupVisitorCounter(); // 訪問者カウンターを削除
     setupGallerySwiper();
     setupProgressBar();
     setupImageModal();
   });
-  
