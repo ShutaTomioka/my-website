@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shuta's personal site featuring about, skills, diary, gallery, and contact form">
-    <title>Shuta's Portfolio</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Shuta's Portfolio: Data Scientist specializing in Machine Learning, Aircraft Fuel Optimization, and Web Development.">
+    <title>Shuta | Data Scientist Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- スクロール進捗バーを追加 -->
     <div class="scroll-progress-bar"></div>
 
     <header class="site-header">
@@ -35,247 +33,156 @@
 
     <main>
         <section id="hero" class="hero">
-            <!-- Particle.js のための要素 -->
             <div id="particles-js" class="particles"></div>
             <div class="hero-content">
-                <h1>Welcome to My Website</h1>
-                <p>Data Science & Web Development.</p>
+                <h1>Data Science &<br>Engineering</h1>
+                <p>Turning complex data into actionable insights.</p>
                 <a href="#about" class="btn-primary">Learn More</a>
             </div>
         </section>
 
         <section id="about" class="container section-padding fade-in">
             <h2>About Me</h2>
-            <p>Originally from Kansai, now living in Tokyo. I graduated from Kobe University in Data
-                Science (2025), specializing in aircraft fuel consumption. Currently working at Kao Corporation in the
-                data science team, living in Sumida City.</p>
+            <p>Originally from Kansai, now based in Sumida City, Tokyo. I hold a degree in Data Science from Kobe University (2025), where I specialized in aircraft fuel consumption optimization. Currently, I work as a <strong>Data Scientist at Kao Corporation</strong>, leveraging machine learning and advanced analytics to solve real-world problems.</p>
         </section>
 
-        <section id="purpose" class="container section-padding fade-in">
-            <h2>Why I Built This Site</h2>
-            <p>
-                I built this website as a personal project to deepen my knowledge of web development. Currently, I am
-                focused on mastering HTML, CSS, and JavaScript. This project also serves as a creative outlet for
-                building a digital space of my own.
-            </p>
-        </section>
-
-        <!-- 研究実績セクションを追加 -->
         <section id="research" class="container section-padding fade-in">
             <h2>Research & Projects</h2>
+            <p class="section-subtitle">Academic research and professional applications of data science.</p>
             <div class="grid research-grid">
                 <div class="card">
-                    <h3>Aircraft Fuel Consumption Reduction through Climb Optimization</h3>
-                    <p>My graduation thesis at Kobe University focused on verifying the **fuel consumption reduction
-                        effect of optimized aircraft climb procedures using actual operational flight data**. I
-                        investigated the effectiveness of switching from the traditional VNAV SPD mode (Maximum Climb
-                        Thrust) to the V/S (Vertical Speed) mode during the mid-phase of climb, aiming to reduce engine
-                        thrust and improve fuel efficiency.</p>
-                    <p>Using **four months of test flight data from Lufthansa Cargo's Boeing 777F aircraft**, my study
-                        analyzed the impact of external factors such as aircraft weight, outside air temperature (ISA
-                        deviation), wind speed, and wind direction on fuel efficiency. I developed Python scripts for
-                        **automated data extraction and cleaning**, ensuring high-quality data for analysis.</p>
-                    <p>The research demonstrated a potential **fuel saving of approximately 35-40 pounds per flight**
-                        compared to conventional methods, aligning with prior simulation-based studies. This approach
-                        contributes to both economic savings and a significant reduction in CO2 emissions for airlines.
-                        The findings provide practical guidelines for airlines to select optimal climb methods based on
-                        specific conditions (e.g., lower temperatures and moderate aircraft weights for 600-4000 ft/min
-                        climb method). </p>
+                    <h3>Aircraft Fuel Optimization (Thesis)</h3>
+                    <p><strong>Topic:</strong> Reduction of fuel consumption through climb optimization using operational flight data.</p>
+                    <p>Analyzed <strong>four months of flight data from Lufthansa Cargo's Boeing 777F</strong> to verify the effectiveness of switching from VNAV SPD to V/S mode during climb. Using Python for automated data extraction and cleaning, I modeled the impact of weight and ISA deviation on fuel efficiency.</p>
+                    <p><strong>Result:</strong> Demonstrated a potential saving of <strong>35-40 lbs per flight</strong>, contributing to both cost reduction and lower CO2 emissions.</p>
                 </div>
                 <div class="card">
-                    <h3>AEON NEXT Senko Hanabi Coupon Project</h3>
-                    <p>As part of my professional experience, I contributed to the **AEON NEXT "Senko Hanabi Coupon"
-                        project**. This initiative aimed to significantly improve last-mile delivery efficiency for
-                        AEON's online supermarket "Green Beans". I was responsible for writing the **source code** for
-                        this project, which leveraged data science and AI to optimize delivery routes and coupon
-                        distribution, demonstrating a practical application of advanced analytics in retail logistics.
-                    </p>
+                    <h3>Last-Mile Logistics Optimization</h3>
+                    <p><strong>Project:</strong> AEON NEXT "Senko Hanabi Coupon" Project.</p>
+                    <p>Contributed to the source code development for optimizing delivery routes and coupon distribution for AEON's online supermarket, "Green Beans".</p>
+                    <p><strong>Role:</strong> Applied advanced analytics and algorithm development to improve last-mile delivery efficiency, demonstrating practical AI application in retail logistics.</p>
                 </div>
             </div>
         </section>
 
         <section id="skills" class="container section-padding fade-in">
-            <h2>Skills & Projects</h2>
+            <h2>Technical Stack</h2>
+            <p class="section-subtitle">Core competencies in machine learning and software development.</p>
             <div class="grid skills-grid">
                 <div class="card">
                     <h3>Python & ML</h3>
-                    <p>I primarily use **Python** to build machine learning models, specializing in predictive analysis
-                        and advanced algorithms.</p>
+                    <p>Expertise in building predictive models using <strong>Scikit-learn, TensorFlow, and PyTorch</strong>. Proficient in regression, clustering, and time-series analysis for complex datasets.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Engineering</h3>
+                    <p>Skilled in data manipulation with <strong>Pandas/NumPy</strong> and database management using <strong>SQL</strong>. Experience in cleaning large-scale datasets for production environments.</p>
                 </div>
                 <div class="card">
                     <h3>Web Development</h3>
-                    <p>This website is my hands-on project to improve my skills in **HTML, CSS, and JavaScript**. I'm
-                        learning to create interactive user interfaces and build responsive, accessible web applications
-                        from scratch.</p>
+                    <p>Building interactive interfaces using <strong>HTML5, CSS3, and JavaScript (ES6+)</strong>. Currently expanding into the MERN stack to develop full-cycle data applications.</p>
                 </div>
                 <div class="card">
-                    <h3>Data Visualization</h3>
-                    <p>I leverage libraries like **Matplotlib** to transform complex data into clear, compelling
-                        visualizations, which helps communicate key insights to stakeholders.</p>
+                    <h3>Visualization</h3>
+                    <p>Transforming data into insights using <strong>Matplotlib, Seaborn, and Plotly</strong>. Strong focus on communicating technical results to non-technical stakeholders.</p>
                 </div>
             </div>
+        </section>
+
+        <section id="purpose" class="container section-padding fade-in">
+            <h2>Why This Site?</h2>
+            <p>
+                I built this website as a personal sandbox to deepen my understanding of web technologies. While my primary focus is data science, mastering the presentation layer (HTML/CSS/JS) allows me to better deploy and showcase my analytical models to the world.
+            </p>
         </section>
 
         <section id="diary" class="container section-padding fade-in">
             <h2>Diary</h2>
-            <!-- 日記投稿ボタンを配置 -->
+            
             <div class="diary-action">
-                <button id="open-diary-modal-btn" class="btn-primary">Write Today's Diary</button>
+                <button id="open-diary-modal-btn" class="btn-primary">Write Entry</button>
             </div>
 
-            <!-- 最新の日記表示エリア -->
-            <h3>Latest Entry</h3>
-            <div id="latest-diary-display" class="card diary-display-card">
-                <p>Loading latest diary...</p>
-            </div>
+            <div class="diary-layout">
+                <div class="diary-column">
+                    <h3>Latest Entry</h3>
+                    <div id="latest-diary-display" class="card diary-display-card">
+                        <p>Loading...</p>
+                    </div>
+                </div>
 
-            <!-- 日付選択と閲覧エリア -->
-            <h3>View Diary by Date</h3>
-            <div class="diary-viewer-controls">
-                <label for="view-diary-date">Select Date:</label>
-                <input type="date" id="view-diary-date">
-                <button id="view-diary-btn" class="btn-secondary">View</button>
-            </div>
-            <div id="viewed-diary-content" class="card diary-display-card">
-                <p>Select a date to view an entry.</p>
+                <div class="diary-column">
+                    <h3>Archive</h3>
+                    <div class="diary-viewer-controls">
+                        <input type="date" id="view-diary-date">
+                        <button id="view-diary-btn" class="btn-secondary">Read</button>
+                    </div>
+                    <div id="viewed-diary-content" class="card diary-display-card">
+                        <p>Select a date to view past entries.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- 全ての日記エントリを格納する非表示セクション -->
         <section id="diary-full" style="display: none;">
             <article data-date="2025-07-26">
-                <h1>2025-07-26: To apply latest machine leaning models. </h1>
-                <p>
-                    In my work, I often use Python to build machine learning models.
-                    It is important to understand and apply recent, more powerful learning models in order to improve
-                    accuracy.
-                    So I have to read and study the latest papers and articles about machine learning, deep learning,
-                    and AI.
-
-                    It’s very difficult to understand, but when I was a student, my professor told me,
-                    “Don’t stop learning. Continue to study.”
-                    I try to do my best while keeping those words in mind.
-                </p>
+                <h1>2025-07-26: Applying Latest ML Models</h1>
+                <p>In my work, I often use Python to build machine learning models. It is crucial to understand and apply recent, more powerful algorithms to improve accuracy. I dedicate time to reading papers on Deep Learning and AI. My professor's words, "Don’t stop learning," still resonate with me.</p>
             </article>
-
             <article data-date="2025-07-20">
                 <h1>2025-07-20: Demon Slayer: Infinity Castle</h1>
-                <p>
-                    I watched the movie "Demon Slayer: Infinity Castle" today.
-                    It was a great movie with a powerful story and stunning animation and visuals.
-                    Since the anime already had amazing action scenes, we were hoping the movie would be even more
-                    powerful, with beautiful visuals and music.
-
-                    I think it’s a big challenge to create a movie that excites the audience even more than the anime.
-                    But this movie did exactly that. It was even more powerful than I expected.
-
-                    Honestly, I'm not a big fan of anime, but I was truly moved by the storytelling and the visuals.
-                    Japanese anime is one of Japan’s most valuable cultural assets.
-
-
-                </p>
+                <p>Watched "Demon Slayer: Infinity Castle". The animation and visuals exceeded my expectations. It's a challenge to surpass the anime series, but this movie did it. A proud cultural asset of Japan.</p>
             </article>
             <article data-date="2025-07-04">
-                <h1>2025-07-04: Come back my hometown.</h1>
-                <p>
-                    I came back to my hometown, Nara.
-                    It’s a quiet place, unlike Tokyo.
-                    There are many plants and trees, and I can really feel close to nature.
-
-                    I took the Shinkansen to get back here, and I visited the hot spring I used to go to every week
-                    during my student days.
-                    It was a bit noisy and crowded, but I still felt a little relaxed.
-
-                    Today, I’m going to meet some of my old friends from high school.
-                    I’m looking forward to doing something fun with them!
-                </p>
+                <h1>2025-07-04: Back in Nara</h1>
+                <p>Returned to my hometown, Nara. The quiet atmosphere and nature are a stark contrast to Tokyo. Visited my favorite hot spring and met old high school friends. A refreshing break.</p>
             </article>
             <article data-date="2025-07-03">
-                <h1>2025-07-03: For their comfort or health??.</h1>
-                <p>I see people who guard elementary school children every day.
-                    They are very kind and helpful, but I feel a little sad.
-                    When I greet them, they don’t respond—not just to me, but to other adults as well.
-                    I wonder why. One of the important things they teach children is to greet everyone they meet.
-
-                    Guarding children is a very important job, and I respect them.
-                    But it feels like they only do what they want to do.
-                    If they have chosen to take on this role, shouldn’t they also teach children how to interact with
-                    society through their own behavior?
-
-                    Right now, it seems like they’re only doing what suits them—for their own comfort or health?
-                </p>
+                <h1>2025-07-03: Social Responsibility</h1>
+                <p>Reflecting on the behavior of crossing guards. While I respect their role, the lack of greetings feels contradictory to what we teach children. Adults should model social interaction.</p>
             </article>
             <article data-date="2025-07-01">
-                <h1>2025-07-01: I'll try to do my best.</h1>
-                <p>Today is the first day of July. It's very hot and humid.
-                    At work, the details of our project are confidential, but I’m the leader of my team.
-                    Of course, I’ve been a leader many times during my student life, but in the workplace, there are
-                    many new challenges.
-                    I’m not sure if I can do it perfectly, but I’ll do my best to contribute to my team — not only by
-                    understanding each teammate’s strengths and weaknesses, but also by being aware of my own.
-                    To complete the project successfully by the end of the day, I’ll try to manage everything as well as
-                    I can.</p>
+                <h1>2025-07-01: Leadership Challenges</h1>
+                <p>First day of July. Leading a confidential project at work brings new challenges compared to student leadership. I aim to understand my team's strengths and my own, striving to manage the project successfully.</p>
             </article>
             <article data-date="2025-06-30">
-                <h1>2025-06-30: Today is the last day of June. Time flies!</h1>
-                <p>
-                    Today is the last day of June.
-                    It doesn’t really feel like the rainy season (called tsuyu in Japan) these days.
-                    I’m not sure why, but I feel like time passes more quickly than before.
-                    Maybe it’s just because I’ve been really busy lately — that’s part of it, honestly, but there are
-                    also other reasons.
-                    I want to live a life where I can enjoy every moment — not just the happy ones, but also the sad and
-                    boring ones.
-                </p>
+                <h1>2025-06-30: Time Flies</h1>
+                <p>Last day of June. Time seems to accelerate when busy. I want to cherish every moment—happy, sad, or boring—and live life fully.</p>
             </article>
             <article data-date="2025-06-29">
-                <h1>2025-06-29: Update website</h1>
-                <p>I am adding some information about my research experiences and personal details, and it's a lot of
-                    work due to
-                    my lack of skills.
-                    In my job, I may not use HTML, CSS, or Java in the near future, but I am doing so because it could
-                    be a crucial
-                    point in solving important tasks.</p>
+                <h1>2025-06-29: Updating Website</h1>
+                <p>Adding research experiences and personal details. It's hard work due to my developing web skills, but mastering HTML/CSS/JS could be crucial for future problem-solving.</p>
             </article>
             <article data-date="2025-06-28">
-                <h1>2025-06-28: Create and Launch the Website</h1>
-                <p>Today I launched my very first personal website. It features my skills, daily life updates, gallery,
-                    and more. Feel free to browse around!</p>
+                <h1>2025-06-28: Launch Day</h1>
+                <p>Launched my personal website today! It features my skills, diary, and gallery. A first step into web development.</p>
             </article>
         </section>
 
         <section id="gallery" class="container section-padding fade-in">
             <h2>Gallery</h2>
-            <!-- SwiperJS のためのコンテナ -->
             <div class="swiper-container gallery-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="images/photo1.jpg" alt="Sorry,Its now building." loading="lazy">
-                    </div>
-                    <div class="swiper-slide"><img src="images/photo2.jpg" alt="Sorry,Its now building." loading="lazy">
-                    </div>
-                    <div class="swiper-slide"><img src="images/photo3.jpg" alt="Sorry,Its now building." loading="lazy">
-                    </div>
-                    <div class="swiper-slide"><img src="images/photo4.jpg" alt="Sorry,Its now building." loading="lazy">
-                    </div>
+                    <div class="swiper-slide"><img src="images/photo1.jpg" alt="Gallery Image 1" loading="lazy"></div>
+                    <div class="swiper-slide"><img src="images/photo2.jpg" alt="Gallery Image 2" loading="lazy"></div>
+                    <div class="swiper-slide"><img src="images/photo3.jpg" alt="Gallery Image 3" loading="lazy"></div>
+                    <div class="swiper-slide"><img src="images/photo4.jpg" alt="Gallery Image 4" loading="lazy"></div>
                 </div>
-                <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
-                <!-- Add Navigation -->
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
         </section>
 
         <section id="contact" class="container section-padding fade-in">
-            <h2>Contact Me</h2>
+            <h2>Contact</h2>
             <form action="https://formspree.io/f/mnaykbyv" method="POST" class="contact-form">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <input type="email" id="email" name="email" placeholder="email@example.com" required>
                 <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
-                <button type="submit" class="btn-primary">Send</button>
+                <textarea id="message" name="message" rows="5" placeholder="How can I help you?" required></textarea>
+                <button type="submit" class="btn-primary">Send Message</button>
             </form>
         </section>
     </main>
@@ -284,35 +191,32 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 Shuta. All rights reserved.</p>
+            <p>&copy; 2025 Shuta. Built with vanilla HTML/CSS/JS.</p>
         </div>
     </footer>
 
-    <!-- 画像モーダルウィンドウの要素 -->
     <div id="image-modal" class="image-modal">
         <span class="close-modal">&times;</span>
         <img class="modal-content" id="modal-image">
     </div>
 
-    <!-- 日記投稿モーダルの要素 -->
     <div id="diary-modal" class="modal">
         <div class="modal-content-wrapper">
             <span class="close-modal diary-close-modal">&times;</span>
             <div class="modal-card">
-                <h3>Write a diary</h3>
+                <h3>Write New Entry</h3>
                 <label for="modal-diary-date">Date:</label>
                 <input type="date" id="modal-diary-date">
-                <label for="modal-new-diary-entry">Body:</label>
-                <textarea id="modal-new-diary-entry" placeholder="Write here "></textarea>
-                <label for="modal-diary-password">PW:</label>
-                <input type="password" id="modal-diary-password" placeholder="管理者PW">
-                <button id="modal-post-diary-btn" class="btn-primary">Push</button>
+                <label for="modal-new-diary-entry">Content:</label>
+                <textarea id="modal-new-diary-entry" placeholder="What's on your mind?"></textarea>
+                <label for="modal-diary-password">Auth Code:</label>
+                <input type="password" id="modal-diary-password" placeholder="Password">
+                <button id="modal-post-diary-btn" class="btn-primary">Publish</button>
                 <p id="modal-diary-message" class="error-message"></p>
             </div>
         </div>
     </div>
 
-    <!-- 外部ライブラリの読み込み -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
