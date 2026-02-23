@@ -1,29 +1,49 @@
 /**
- * Shuta's Portfolio - Script
+ * Shuta's Portfolio - Final Integrated Script
  */
 
-const DB_KEY = 'shuta_portfolio_diary';
+// --- 1. Particles.js 初期化 ---
+function initParticles() {
+    if (document.getElementById('particles-js')) {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }
+            },
+            "retina_detect": true
+        });
+    }
+}
 
-// --- LocalStorage ---
-const getSavedPosts = () => JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-const saveToDB = (entry) => {
-    const posts = getSavedPosts();
-    posts.push(entry);
-    localStorage.setItem(DB_KEY, JSON.stringify(posts));
-};
+// --- 2. テーマ切り替え機能 ---
+function setupTheme() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
 
-// --- UI Components ---
-function setupNav() {
-    const btn = document.getElementById('nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    if (!btn || !menu) return;
+    const setTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', theme);
+        toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', theme);
+    };
 
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('open');
-        btn.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    setTheme(currentTheme);
+
+    toggleBtn.addEventListener('click', () => {
+        const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
     });
 }
 
+// --- 3. スキルアニメーション (Intersection Observer) ---
 function setupSkillAnimations() {
     const skillSection = document.getElementById('skills');
     const skillCards = document.querySelectorAll('.skill-card');
@@ -32,12 +52,8 @@ function setupSkillAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                skillCards.forEach((card, i) => {
-                    setTimeout(() => card.classList.add('animate'), i * 150);
-                });
-                progressBars.forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-level');
-                });
+                skillCards.forEach((card, i) => setTimeout(() => card.classList.add('animate'), i * 150));
+                progressBars.forEach(bar => bar.style.width = bar.getAttribute('data-level'));
                 observer.unobserve(entry.target);
             }
         });
@@ -46,7 +62,10 @@ function setupSkillAnimations() {
     if (skillSection) observer.observe(skillSection);
 }
 
-// --- Diary Engine ---
+// --- 4. 日記機能 (LocalStorage保存) ---
+const DB_KEY = 'shuta_portfolio_diary';
+const getSavedPosts = () => JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+
 function displayLatestDiary() {
     const display = document.getElementById('latest-diary-display');
     const saved = getSavedPosts();
@@ -72,7 +91,6 @@ function setupDiaryModal() {
     const openBtn = document.getElementById('open-diary-modal-btn');
     const closeBtn = document.querySelector('.diary-close-modal');
     const postBtn = document.getElementById('modal-post-diary-btn');
-    const msg = document.getElementById('modal-diary-message');
 
     if (!modal || !openBtn) return;
 
@@ -81,55 +99,34 @@ function setupDiaryModal() {
         document.getElementById('modal-diary-date').value = new Date().toISOString().split('T')[0];
     });
 
-    const closeModal = () => { modal.style.display = 'none'; msg.style.display = 'none'; };
-    closeBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
     postBtn.addEventListener('click', () => {
         const date = document.getElementById('modal-diary-date').value;
         const text = document.getElementById('modal-new-diary-entry').value;
         const pw = document.getElementById('modal-diary-password').value;
 
-        if (pw === 'shuta0426') {
-            if (!text.trim()) return;
-            saveToDB({ date, title: `${date}: Update`, content: text.replace(/\n/g, '<br>') });
+        if (pw === 'shuta0426' && text.trim()) {
+            const posts = getSavedPosts();
+            posts.push({ date, title: `${date}: New Entry`, content: text.replace(/\n/g, '<br>') });
+            localStorage.setItem(DB_KEY, JSON.stringify(posts));
             displayLatestDiary();
-            msg.textContent = 'Saved!'; msg.style.color = 'var(--primary)';
-            msg.style.display = 'block';
-            setTimeout(closeModal, 1000);
+            modal.style.display = 'none';
         } else {
-            msg.textContent = 'Invalid Code'; msg.style.color = 'var(--error-color)';
-            msg.style.display = 'block';
+            alert('Invalid Password or Empty Content');
         }
     });
 }
 
-function setupProgressBar() {
-    const bar = document.querySelector('.scroll-progress-bar');
-    window.addEventListener('scroll', () => {
-        const h = document.documentElement;
-        const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-        if (bar) bar.style.width = scrolled + "%";
-    });
-}
-
-// --- Initialization ---
+// --- 5. 初期化 ---
 document.addEventListener('DOMContentLoaded', () => {
-    setupNav();
-    setupProgressBar();
+    initParticles();     // 背景アニメーション
+    setupTheme();         // テーマ（太陽/月）
+    setupSkillAnimations(); 
     displayLatestDiary();
     setupDiaryModal();
-    setupSkillAnimations();
 
     window.addEventListener('scroll', () => {
         document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 50);
     });
-
-    if (typeof Swiper !== 'undefined') {
-        new Swiper('.gallery-swiper', {
-            loop: true,
-            pagination: { el: '.swiper-pagination' },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
-        });
-    }
 });
